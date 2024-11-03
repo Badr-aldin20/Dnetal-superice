@@ -11,20 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('emploes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone');
-            $table->enum('type',["Master Admin","Admin Provider","Clinic"])->default("Clinic");
-            $table->string('Location');
-            $table->double('LOC_X')->nullable();
-            $table->double('LOC_Y')->nullable();
-            $table->string('name company')->nullable();
-            $table->decimal('stock')->default(0);
-            $table->rememberToken();
+            $table->foreignId("Manger_Id")->constrained("users");
             $table->timestamps();
         });
     }
@@ -34,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('emploes');
     }
 };
